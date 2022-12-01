@@ -14,7 +14,7 @@ const operators = ["+", "-", "*", "/"];
 const generateConsquentString = () => {
   return ` ${operators[getRandomInt(4)]} ${getRandomToTwoDecimalPlaces(100)}`;
 };
-const generateQuestion = (inputString: string = "") => {
+const generateQuestion = () => {
   const oneInFour = getRandomInt(4);
   let fiftyFifty = getRandomInt(2);
   const firstNumber = getRandomToTwoDecimalPlaces(100);
