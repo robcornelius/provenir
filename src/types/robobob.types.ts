@@ -3,13 +3,11 @@ import { ReactNode } from "react";
 export type FixedQuestion = { q: string; a: string };
 export type FixedQuestionsArray = FixedQuestion[];
 
-export type MathQuestion = number | "+" | "-" | "*" | "/"[];
-
-export type MathQuestions = {
-  q: MathQuestion;
-  a: number;
+export type MathQuestionsType = {
+  q: string;
+  a: string;
 };
-export type MathQuestionsArray = MathQuestions[];
+export type MathQuestionsArray = MathQuestionsType[];
 
 export interface IRoboBob {
   fixedQuestions: FixedQuestionsArray;

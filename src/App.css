@@ -16,17 +16,34 @@ header h1 {
 }
 .bigBox section {
   flex-grow: 5;
-  min-width: 50%;
+  min-width: 45%;
 }
 .bigBox section h2 {
   text-align: center;
 }
-.fixedQuestions {
-  background-color: orange;
-}
-.mathsQuestions {
-  background-color: silver;
+.fixedQuestions, .mathsQuestions {
+  border: 1px solid #000;
+  border-radius: 1rem;
+  -webkit-box-shadow: 10px 3px 15px -6px #000000; 
+  box-shadow: 10px 3px 15px -6px #000000;
+  padding: 1rem;
 }
 .fixedAnswer {
   text-align: center;
+}
+th {
+  text-align: left;
+}
+.centerText {
+  text-align: center;
+}
+tr.even {
+  background-color: #eee;
+}
+tr.even {
+  background-color: #ddd;
+}
+.mathsQs td, .mathsQs th {
+  padding: 2px;
+  border: 1px solid #000;
 }

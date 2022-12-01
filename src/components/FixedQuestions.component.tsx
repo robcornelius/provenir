@@ -1,76 +1,68 @@
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, Button, TextField } from "@mui/material";
 import React, { useState } from "react";
 import useRoboBobContext from "../hooks/useRoboBobContext.hook";
-import { FixedQuestion } from "../types/robobob.types";
-let questionsAnswered: number = 0;
+import { FixedQuestion, FixedQuestionsArray } from "../types/robobob.types";
 
 const FixedQuestions = () => {
   const { fixedQuestions } = useRoboBobContext();
-  const [question, setQuestion] = useState<string | null>("");
   const [answer, setAnswer] = useState<string>("");
+  const [showAll, setShowAll] = useState<boolean>(false);
+  const [answeredQuestions, setAnsweredQuestions] =
+    useState<FixedQuestionsArray>([]);
   const questions = fixedQuestions.map((el: FixedQuestion) => {
     return el.q;
   });
 
-  const handleKeyDown = (event: any) => {
-    switch (event.key) {
-      case "Enter": {
-        event.preventDefault();
-        event.stopPropagation();
-        if (event.currentTarget.value.length > 0) {
-          setQuestion(event.currentTarget.value);
-        }
-        const qa = fixedQuestions.find((el: FixedQuestion) => {
-          return el.q === question;
-        });
-        setAnswer(qa?.a || "");
-        questionsAnswered++;
-        break;
-      }
-      default:
-    }
+  const showAnswers = (ev: React.MouseEvent<HTMLButtonElement>) => {
+    setShowAll(true);
   };
 
-  if (questionsAnswered < fixedQuestions.length) {
-    return (
-      <>
-        <Autocomplete
-          id="hit"
-          options={questions}
-          autoHighlight
-          renderInput={(params: any) => {
-            params.inputProps.onKeyDown = handleKeyDown;
-            return (
-              <TextField
-                {...params}
-                variant="outlined"
-                label=""
-                placeholder="Make a selection and hit enter"
-                margin="normal"
-                fullWidth
-              />
-            );
-          }}
-          onChange={(ev: any, newValue: string | null) => {
-            setQuestion(newValue);
-          }}
-        />
-        <p className="fixedAnswer">
-          <strong>{answer}</strong>
-        </p>
-      </>
-    );
-  }
   return (
     <>
-      <h3>Your answers</h3>
-      {fixedQuestions.map((qa: FixedQuestion) => {
-        return (
-          <p>
-            {qa.q} = <strong>{qa.a}</strong>
-          </p>
-        );
-      })}
+      <Autocomplete
+        id="hit"
+        options={questions}
+        autoHighlight
+        renderInput={(params) => {
+          return (
+            <TextField
+              {...params}
+              variant="outlined"
+              label=""
+              placeholder="Make a selection and hit enter"
+              margin="normal"
+              fullWidth
+            />
+          );
+        }}
+        onChange={(ev: any, newValue: string | null) => {
+          const qa = fixedQuestions.find((el: FixedQuestion) => {
+            return el.q === newValue;
+          });
+          setAnswer(qa?.a || "");
+          const newAnswers = [...answeredQuestions];
+          newAnswers.push({ q: qa?.q || "", a: qa?.a || "" });
+          setAnsweredQuestions(newAnswers);
+        }}
+      />
+      <p className="fixedAnswer">
+        <strong>{answer}</strong>
+      </p>
+      <p className="centerText">
+        <Button onClick={showAnswers} variant="contained">
+          Show answers
+        </Button>
+      </p>
+      {showAll &&
+        answeredQuestions.map((el: FixedQuestion) => {
+          return (
+            <p>
+              {el.q}
+              <br />
+              <strong>{el.a}</strong>
+            </p>
+          );
+        })}
     </>
   );
 };
