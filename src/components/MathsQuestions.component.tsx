@@ -1,32 +1,8 @@
-/* eslint-disable no-eval */
 import { Button, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import useRoboBobContext from "../hooks/useRoboBobContext.hook";
 import { MathQuestionsType } from "../types/robobob.types";
-
-const getRandomInt = (max: number) => {
-  return Math.floor(Math.random() * max);
-};
-const getRandomToTwoDecimalPlaces = (max: number) => {
-  return (Math.random() * max).toFixed(2);
-};
-const operators = ["+", "-", "*", "/"];
-const generateConsquentString = () => {
-  return ` ${operators[getRandomInt(4)]} ${getRandomToTwoDecimalPlaces(100)}`;
-};
-const generateQuestion = () => {
-  const oneInFour = getRandomInt(4);
-  let fiftyFifty = getRandomInt(2);
-  const firstNumber = getRandomToTwoDecimalPlaces(100);
-  const secondNumber = getRandomToTwoDecimalPlaces(100);
-  let questionString = `${firstNumber} ${operators[oneInFour]} ${secondNumber}`;
-  while (fiftyFifty === 1) {
-    questionString += generateConsquentString();
-    fiftyFifty = getRandomInt(2);
-  }
-  const questionAnswer = eval(questionString).toFixed(2);
-  return { q: questionString, a: questionAnswer };
-};
+import { generateQuestion } from "./mathQuestions.utils";
 
 const MathsQuestions = () => {
   const { mathQuestions, setMathQuestions } = useRoboBobContext();
@@ -38,21 +14,23 @@ const MathsQuestions = () => {
     }
   }, [mathQuestions, setMathQuestions]);
 
-  const checkAnswer = (supplied: string, correct: string) => {
+  const checkAnswer = (supplied: string, correct: string, index: number) => {
     const newAnswers = [...answers];
     if (supplied === correct) {
-      newAnswers.push(true);
+      newAnswers[index] = true;
     } else {
-      newAnswers.push(false);
+      newAnswers[index] = false;
     }
     setAnswers(newAnswers);
   };
 
   const handleKeyDown = (ev: React.KeyboardEvent<HTMLInputElement>) => {
     if (ev.key === "Enter") {
+      debugger;
       checkAnswer(
         ev.currentTarget.value,
-        mathQuestions[mathQuestions.length - 1].a
+        mathQuestions[mathQuestions.length - 1].a,
+        parseInt(ev.currentTarget?.dataset?.index || "")
       );
     }
   };
@@ -66,15 +44,15 @@ const MathsQuestions = () => {
 
   return (
     <>
-      <p>type your answer and press enter to see if you are correct</p>
+      <p>Enter your answer and hit return to see if you are correct</p>
       <p>Only two decimal places are required</p>
       <div>
         <table width="100%" className="mathsQs" cellSpacing={0}>
           <thead>
             <tr>
-              <th>Question:</th>
-              <th>Your Answer:</th>
-              <th>Solution:</th>
+              <th style={{ width: "33%" }}>Question:</th>
+              <th style={{ width: "33%" }}>Your Answer:</th>
+              <th style={{ width: "33%" }}>Solution:</th>
             </tr>
           </thead>
           <tbody>
@@ -86,6 +64,7 @@ const MathsQuestions = () => {
                     <TextField
                       type="number"
                       onKeyDown={handleKeyDown}
+                      data-index={idx}
                       size="small"
                       placeholder="enter number"
                       style={{ width: "150px", margin: 0 }}
