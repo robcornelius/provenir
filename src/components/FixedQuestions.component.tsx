@@ -53,16 +53,28 @@ const FixedQuestions = () => {
           Show answers
         </Button>
       </p>
-      {showAll &&
-        answeredQuestions.map((el: FixedQuestion) => {
-          return (
-            <p>
-              {el.q}
-              <br />
-              <strong>{el.a}</strong>
-            </p>
-          );
-        })}
+      {showAll && (
+        <div className="roboBobBorder">
+          <table width="100%" className="robobobQs" cellSpacing={0}>
+            <thead>
+              <tr>
+                <th style={{ width: "50%" }}>Question:</th>
+                <th style={{ width: "50%" }}>RoboBobs Answer</th>
+              </tr>
+            </thead>
+            <tbody>
+              {answeredQuestions.map((el: FixedQuestion, idx: number) => {
+                return (
+                  <tr key={idx} className={idx % 2 === 0 ? "even" : "odd"}>
+                    <td>{el.q}</td>
+                    <td>{el.a}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
     </>
   );
 };

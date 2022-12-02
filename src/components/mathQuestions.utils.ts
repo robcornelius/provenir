@@ -1,12 +1,12 @@
 /* eslint-disable no-eval */
-export const getRandomInt = (max: number) => {
+const getRandomInt = (max: number) => {
   return Math.floor(Math.random() * max);
 };
-export const getRandomToTwoDecimalPlaces = (max: number) => {
+const getRandomToTwoDecimalPlaces = (max: number) => {
   return (Math.random() * max).toFixed(2);
 };
-export const operators = ["+", "-", "*", "/"];
-export const generateConsquentString = () => {
+const operators = ["+", "-", "*", "/"];
+const generateConsquentString = () => {
   return ` ${operators[getRandomInt(4)]} ${getRandomToTwoDecimalPlaces(100)}`;
 };
 export const generateQuestion = () => {

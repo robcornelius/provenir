@@ -16,13 +16,13 @@ function App() {
           rowSpacing={2}
           columnSpacing={{ xs: 1, sm: 1, md: 2, lg: 2, xl: 3 }}
         >
-          <Grid xs={12} sm={12} md={6} lg={6} xl={6}>
+          <Grid xs={12} sm={12} md={12} lg={12} xl={6}>
             <section className="fixedQuestions">
               <h2>Questions for me:</h2>
               <FixedQuestions />
             </section>
           </Grid>
-          <Grid xs={12} sm={12} md={6} lg={6} xl={6}>
+          <Grid xs={12} sm={12} md={12} lg={12} xl={6}>
             <section className="mathsQuestions">
               <h2>Maths questions for you:</h2>
               <MathsQuestions />

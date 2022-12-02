@@ -31,10 +31,17 @@ th {
 tr.even {
   background-color: #eee;
 }
-tr.even {
+tr.odd {
   background-color: #ddd;
 }
-.mathsQs td, .mathsQs th {
-  padding: 2px;
-  border: 1px solid #000;
+.mathsQs th, .mathsQs td, .robobobQs td, .robobobQs th{
+  padding: 0.25rem;
+  border-bottom: 1px solid #000;
+  border-left: 1px solid #000;
+}
+.mathsBorder, .roboBobBorder {
+  border-top: 2px solid #000;
+  border-right: 2px solid #000;
+  border-bottom: 1px solid #000;
+  border-left: 1px solid #000;
 }

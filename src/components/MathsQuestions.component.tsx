@@ -46,7 +46,7 @@ const MathsQuestions = () => {
     <>
       <p>Enter your answer and hit return to see if you are correct</p>
       <p>Only two decimal places are required</p>
-      <div>
+      <div className="mathsBorder">
         <table width="100%" className="mathsQs" cellSpacing={0}>
           <thead>
             <tr>
